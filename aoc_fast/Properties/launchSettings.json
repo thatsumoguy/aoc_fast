@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "aoc_fast": {
+      "commandName": "Project",
+      "commandLineArgs": "2016"
+    }
+  }
+}
