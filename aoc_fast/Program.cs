@@ -102,7 +102,6 @@ try
     }
     if (args.Contains("-b") || args.Contains("--benchmark"))
     {
-        Console.WriteLine("test");
         if (years.Count == 0)
         {
             Console.WriteLine("You must specify a year for benchmarking.");
