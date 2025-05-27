@@ -25,7 +25,7 @@ namespace aoc_fast.Years._2017
         public static int PartOne()
         {
             Parse();
-            return Values.Select(v => v[v.Count - 1] - v[0]).Sum();
+            return Values.Select(v => v[^1] - v[0]).Sum();
         }
 
         public static int PartTwo() =>

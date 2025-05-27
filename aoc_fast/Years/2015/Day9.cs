@@ -56,7 +56,7 @@ namespace aoc_fast.Years._2015
                 }
 
                 trip(0, slice[0]);
-                trip(0, slice[slice.Count - 1]);
+                trip(0, slice[^1]);
 
                 for (var i = 1; i < slice.Count; i++) { trip(slice[i], slice[i - 1]); }
                 global_min = Math.Min(sum - local_max, global_min);

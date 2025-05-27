@@ -57,7 +57,7 @@ namespace aoc_fast.Years._2015
                 };
 
                 link(0, slice[0]);
-                link(0, slice[slice.Count - 1]);
+                link(0, slice[^1]);
 
                 for (var i = 1; i < slice.Count; i++) link(slice[i], slice[i - 1]);
 

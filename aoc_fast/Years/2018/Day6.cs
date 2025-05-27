@@ -82,7 +82,7 @@ namespace aoc_fast.Years._2018
                 var left = candidate[0].Item1;
                 if (left != marker) finite[left] = false;
 
-                var right = candidate[candidate.Count - 1].Item1;
+                var right = candidate[^1].Item1;
                 if (right != marker) finite[right] = false;
 
                 foreach (var w in candidate.Windows(3))
