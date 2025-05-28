@@ -91,24 +91,18 @@ namespace aoc_fast.Years._2016
             }
         }
 
-        private static byte[] ToAscii(uint i)
+        private static void ToAscii(uint i, Span<byte> dest, int offset)
         {
-            var n = (ulong)i;
-            n = ((n << 16) & 0x0000ffff00000000) | (n & 0x000000000000ffff);
-            n = ((n << 8) & 0x00ff000000ff0000) | (n & 0x000000ff000000ff);
-            n = ((n << 4) & 0x0f000f000f000f00) | (n & 0x000f000f000f000f);
-
-            var mask = ((n + 0x0606060606060606) >> 4) & 0x0101010101010101;
-            n = n + 0x3030303030303030 + 0x27 * mask;
-
-            return BitConverter.GetBytes(BinaryPrimitives.ReverseEndianness(n));
+            for (int j = 0; j < 8; j++)
+            {
+                int nibble = (int)(i >> ((7 - j) * 4)) & 0xF;
+                dest[offset + j] = (byte)(nibble < 10 ? '0' + nibble : 'a' + (nibble - 10));
+            }
         }
-
-        private static (byte[], int) FormatString(string prefix, int n)
+        private static int FormatString(string prefix, int n, Span<byte> buffer)
         {
             var s = $"{prefix}{n}";
-            var size = s.Length;
-            return (Encoding.ASCII.GetBytes(s), size);
+            return Encoding.ASCII.GetBytes(s, buffer);
         }
 
 
@@ -117,18 +111,19 @@ namespace aoc_fast.Years._2016
             while (!cts.IsCancellationRequested)
             {
                 var n = Interlocked.Add(ref shared.Counter, 1);
-                var (buffer, size) = FormatString(shared.Input, n);
-                if (buffer.Length < 64) Array.Resize(ref buffer, 64);
+                var buffer = new byte[64];
+                var bufferSpan = buffer.AsSpan();
+                var size = FormatString(shared.Input, n, bufferSpan);
                 var result = Md5.Hash(buffer, size);
 
                 if (shared.PartTwo)
                 {
-                    for (var _ = 0; _ < 2016; _++)
+                    for (var i = 0; i < 2016; i++)
                     {
-                        Array.Copy(ToAscii(result.Item1), 0, buffer, 0, 8);
-                        Array.Copy(ToAscii(result.Item2), 0, buffer, 8, 8);
-                        Array.Copy(ToAscii(result.Item3), 0, buffer, 16, 8);
-                        Array.Copy(ToAscii(result.Item4), 0, buffer, 24, 8);
+                        ToAscii(result.Item1, buffer, 0);
+                        ToAscii(result.Item2, buffer, 8);
+                        ToAscii(result.Item3, buffer, 16);
+                        ToAscii(result.Item4, buffer, 24);
                         result = Md5.Hash(buffer, 32);
                     }
                 }

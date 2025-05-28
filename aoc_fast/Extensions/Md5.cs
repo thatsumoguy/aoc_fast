@@ -7,11 +7,14 @@ namespace aoc_fast.Extensions
 {
     internal class Md5
     {
+        [ThreadStatic]
+        private static uint[]? _m;
+
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static unsafe (uint, uint, uint, uint) Hash(Span<byte> buffer, int size)
         {
-            int end = buffer.Length - 8;
-            ulong bits = (ulong)size * 8;
+            var end = buffer.Length - 8;
+            var bits = (ulong)size * 8;
             buffer[size] = 0x80;
             buffer[end] = (byte)(bits & 0xFF);
             buffer[end + 1] = (byte)((bits >> 8) & 0xFF);
@@ -21,11 +24,11 @@ namespace aoc_fast.Extensions
             buffer[end + 5] = (byte)((bits >> 40) & 0xFF);
             buffer[end + 6] = (byte)((bits >> 48) & 0xFF);
             buffer[end + 7] = (byte)((bits >> 56) & 0xFF);
-            uint a0 = 0x67452301;
-            uint b0 = 0xefcdab89;
-            uint c0 = 0x98badcfe;
-            uint d0 = 0x10325476;
-            uint[] m = new uint[16];
+            var a0 = 0x67452301u;
+            var b0 = 0xefcdab89u;
+            var c0 = 0x98badcfeu;
+            var d0 = 0x10325476u;
+            var m = _m ??= new uint[16];
 
             fixed (byte* bufferPtr = buffer)
             fixed (uint* mPtr = m)
@@ -38,10 +41,10 @@ namespace aoc_fast.Extensions
 
                     Buffer.MemoryCopy(blockPtr, mBytePtr, 64, 64);
 
-                    uint a = a0;
-                    uint b = b0;
-                    uint c = c0;
-                    uint d = d0;
+                    var a = a0;
+                    var b = b0;
+                    var c = c0;
+                    var d = d0;
 
                     // Round 1
                     a = Round1(a, b, c, d, m[0], 7, 0xd76aa478);
@@ -133,28 +136,28 @@ namespace aoc_fast.Extensions
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static uint Round1(uint a, uint b, uint c, uint d, uint m, int s, uint k)
         {
-            uint f = (b & c) | (~b & d);
+            var f = (b & c) | (~b & d);
             return Common(f, a, b, m, s, k);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static uint Round2(uint a, uint b, uint c, uint d, uint m, int s, uint k)
         {
-            uint f = (b & d) | (c & ~d);
+            var f = (b & d) | (c & ~d);
             return Common(f, a, b, m, s, k);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static uint Round3(uint a, uint b, uint c, uint d, uint m, int s, uint k)
         {
-            uint f = b ^ c ^ d;
+            var f = b ^ c ^ d;
             return Common(f, a, b, m, s, k);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static uint Round4(uint a, uint b, uint c, uint d, uint m, int s, uint k)
         {
-            uint f = c ^ (b | ~d);
+            var f = c ^ (b | ~d);
             return Common(f, a, b, m, s, k);
         }
 
