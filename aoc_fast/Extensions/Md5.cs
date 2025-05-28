@@ -134,38 +134,19 @@ namespace aoc_fast.Extensions
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static uint Round1(uint a, uint b, uint c, uint d, uint m, int s, uint k)
-        {
-            var f = (b & c) | (~b & d);
-            return Common(f, a, b, m, s, k);
-        }
+        private static uint Round1(uint a, uint b, uint c, uint d, uint m, int s, uint k) => Common((b & c) | (~b & d), a, b, m, s, k);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static uint Round2(uint a, uint b, uint c, uint d, uint m, int s, uint k)
-        {
-            var f = (b & d) | (c & ~d);
-            return Common(f, a, b, m, s, k);
-        }
+        private static uint Round2(uint a, uint b, uint c, uint d, uint m, int s, uint k) => Common((b & d) | (c & ~d), a, b, m, s, k);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static uint Round3(uint a, uint b, uint c, uint d, uint m, int s, uint k)
-        {
-            var f = b ^ c ^ d;
-            return Common(f, a, b, m, s, k);
-        }
+        private static uint Round3(uint a, uint b, uint c, uint d, uint m, int s, uint k) => Common(b ^ c ^ d, a, b, m, s, k);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static uint Round4(uint a, uint b, uint c, uint d, uint m, int s, uint k)
-        {
-            var f = c ^ (b | ~d);
-            return Common(f, a, b, m, s, k);
-        }
+        private static uint Round4(uint a, uint b, uint c, uint d, uint m, int s, uint k) => Common(c ^ (b | ~d), a, b, m, s, k);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static uint Common(uint f, uint a, uint b, uint m, int s, uint k)
-        {
-            return b + BitOperations.RotateLeft(m + a + k + f, s);
-        }
+        private static uint Common(uint f, uint a, uint b, uint m, int s, uint k) => b + BitOperations.RotateLeft(m + a + k + f, s);
 
     }
 }

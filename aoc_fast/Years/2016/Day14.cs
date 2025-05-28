@@ -95,7 +95,7 @@ namespace aoc_fast.Years._2016
         {
             for (int j = 0; j < 8; j++)
             {
-                int nibble = (int)(i >> ((7 - j) * 4)) & 0xF;
+                var nibble = (int)(i >> ((7 - j) * 4)) & 0xF;
                 dest[offset + j] = (byte)(nibble < 10 ? '0' + nibble : 'a' + (nibble - 10));
             }
         }
