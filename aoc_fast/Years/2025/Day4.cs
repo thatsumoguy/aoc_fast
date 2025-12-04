@@ -30,8 +30,10 @@ namespace aoc_fast.Years._2025
                     if (Grid[x, y] != (byte)'@') continue;
                     var cur = new Point(x, y);
                     var neighborRolls = 0;
-                    foreach(var neighbor in Directions.DIAGONAL.Select(p => cur + p))
+                    foreach(var p in Directions.DIAGONAL)
                     {
+                        //Doing this versus a Select removes a ton of time
+                        var neighbor = p + cur;
                         if (Grid.Contains(neighbor) && Grid[neighbor] == (byte)'@') neighborRolls++;
                     }
                     if (neighborRolls < 4) res++;
@@ -55,8 +57,9 @@ namespace aoc_fast.Years._2025
                         if (Grid[x, y] != (byte)'@') continue;
                         var cur = new Point(x, y);
                         var neighborRolls = 0;
-                        foreach (var neighbor in Directions.DIAGONAL.Select(p => cur + p))
+                        foreach (var p in Directions.DIAGONAL)
                         {
+                            var neighbor = p + cur;
                             if (Grid.Contains(neighbor) && Grid[neighbor] == (byte)'@') neighborRolls++;
                         }
                         if (neighborRolls < 4)
