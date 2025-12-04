@@ -118,7 +118,7 @@ namespace aoc_fast.Years._2023
             return Solve(Springs, 1);
         }
 
-        private static object mutex = new object();
+        private static object mutex = new();
         public static ulong PartTwo()
         {
             var shared = 0UL;

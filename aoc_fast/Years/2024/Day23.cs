@@ -9,7 +9,7 @@ namespace aoc_fast.Years._2024
             get;
             set;
         }
-        private static Dictionary<int, List<int>> Nodes = new Dictionary<int, List<int>>(1000);
+        private static Dictionary<int, List<int>> Nodes = new(1000);
         private static List<bool[]> Edges = [];
 
         private static void Parse()

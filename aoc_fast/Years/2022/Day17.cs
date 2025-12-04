@@ -19,11 +19,13 @@ namespace aoc_fast.Years._2022
         private static readonly Rock[] ROCKS =
         [
             new(1, 0x0000003c),
-                new(3, 0x00103810),
-                new(3, 0x00080838),
-                new(4, 0x20202020),
-                new(2, 0x00003030),
-            ];
+            new(3, 0x00103810),
+            new(3, 0x00080838),
+            new(4, 0x20202020),
+            new(2, 0x00003030),
+        ];
+
+        //Creating a custom State class to be able to get a custom enumerator so I could do a transformation on iteration.
         public class State : IEnumerable<int>, IEnumerator<int>
         {
             private readonly IEnumerator<Rock> _rockEnumerator;
@@ -31,12 +33,13 @@ namespace aoc_fast.Years._2022
             private readonly byte[] _tower;
             public int Height { get; private set; }
             public int Current { get; private set; }
+            private readonly int _towerIndex = 13000;
 
-            public State(byte[] jets, int towerSize = 13_000)
+            public State(byte[] jets)
             {
                 _rockEnumerator = ROCKS.ToList().Cycle().GetEnumerator();
                 _jetEnumerator = jets.ToList().Cycle().GetEnumerator();
-                _tower = new byte[towerSize];
+                _tower = new byte[_towerIndex];
                 _tower[0] = FLOOR;
                 Height = 0;
                 Current = 0;
@@ -78,7 +81,7 @@ namespace aoc_fast.Years._2022
                 return true;
             }
 
-            public void Reset() => throw new NotSupportedException("Reset is not supported.");
+            public void Reset() { }
 
             object IEnumerator.Current => Current;
 

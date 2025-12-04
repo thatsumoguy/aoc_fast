@@ -54,7 +54,7 @@
 
         public int CompareTo(Point3D other)
         {
-            if (other is null) return 1; // Null is considered less than any actual object
+            if (other is null) return 1;
 
             int cmp = X.CompareTo(other.X);
             if (cmp != 0) return cmp;

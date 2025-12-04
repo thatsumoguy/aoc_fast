@@ -23,14 +23,14 @@ try
     }
     if (args.Length < 1)
     {
-        Console.WriteLine("Enter a year (2015-2024) in a 4 digit or 2 digit format or enter -all for all years.");
+        Console.WriteLine("Enter a year (2015-2025) in a 4 digit or 2 digit format or enter -all for all years.");
         Console.WriteLine("You may also do individual years separated by a comma (2015,2017,2020).");
         Console.WriteLine("Use -h or --help for help");
         return;
     }
     if (args.Any(a => a.Equals("-all", StringComparison.CurrentCultureIgnoreCase)))
     {
-        years.AddRange(Enumerable.Range(2015, 10));
+        years.AddRange(Enumerable.Range(2015, 11));
         all = true;
     }
     else if (!args.Contains("-h") || !args.Contains("--help"))
@@ -44,7 +44,7 @@ try
                     var curYear = int.Parse(year);
                     if (year.Length == 4)
                     {
-                        if (curYear < 2015 || curYear > 2024)
+                        if (curYear < 2015 || curYear > 2025)
                         {
                             Console.WriteLine("Must be between 2015 and 2023");
                             return;
@@ -53,7 +53,7 @@ try
                     }
                     else
                     {
-                        if (curYear < 15 || curYear > 24)
+                        if (curYear < 15 || curYear > 25)
                         {
                             Console.WriteLine("Must be between 2015 and 2023");
                             return;
@@ -67,7 +67,7 @@ try
                 var curYear = int.Parse(args[0]);
                 if (args[0].Length == 4)
                 {
-                    if (curYear < 2015 || curYear > 2024)
+                    if (curYear < 2015 || curYear > 2025)
                     {
                         Console.WriteLine("Must be between 2015 and 2023");
                         return;
@@ -75,7 +75,7 @@ try
                 }
                 else
                 {
-                    if (curYear < 15 || curYear > 24)
+                    if (curYear < 15 || curYear > 25)
                     {
                         Console.WriteLine("Must be between 2015 and 2023");
                         return;

@@ -19,7 +19,7 @@ namespace aoc_fast.Years._2015
             public uint Second;
             public bool FirstDone;
         }
-        private static object mutex = new object();
+        private static object mutex = new();
         private static void CheckHash(byte[] buffer, int size, uint n, Shared shared)
         {
             var (result, _, _, _) = Md5.Hash(buffer, size);

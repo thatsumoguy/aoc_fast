@@ -167,12 +167,12 @@ namespace aoc_fast.Years._2022
             var maxY = (uint)Array.FindLastIndex(grid, i => i.NonZero());
             return (maxX - minX + 1u) * (maxY - minY + 1u) - elves;
         }
-        public static uint? PartTwo()
+        public static int PartTwo()
         {
             Parse();
             Direction[] order = [Direction.North, Direction.South, Direction.West, Direction.East];
             var moved = true;
-            var count = 0u;
+            var count = 0;
             while (moved)
             {
                 moved = Step(grid, north, south, west, east, order);

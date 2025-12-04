@@ -538,7 +538,7 @@ namespace aoc_fast.Extensions
                 }
             }
 
-            if (tempList.Count > 0) result.Add(tempList.ToArray());
+            if (tempList.Count > 0) result.Add([.. tempList]);
 
             return result;
         }
@@ -573,11 +573,38 @@ namespace aoc_fast.Extensions
                 yield return delta;
             }
         }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static IEnumerable<int> Range(int start, int end)
+        {
+            if (start > end) yield return 0;
+            for (var i = start; i < end; i++) yield return i;
+        }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static IEnumerable<uint> Range(uint start, uint end)
+        {
+            if (start > end) yield return 0;
+            for (var i = start; i < end; i++) yield return i;
+        }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static IEnumerable<long> Range(long start, long end)
+        {
+            if (start > end) yield return 0;
+            for (var i = start; i < end; i++) yield return i;
+        }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static IEnumerable<ulong> Range(ulong start, ulong end)
+        {
+            if (start > end) yield return 0;
+            for (var i = start; i < end; i++) yield return i;
+        }
+
     }
     public class ChunkResult<TSource>(IEnumerable<TSource[]> chunks, TSource[] remainder)
     {
         public IEnumerable<TSource[]> Chunks { get; } = chunks;
         public TSource[] Remainder { get; } = remainder;
     }
+
 
 }

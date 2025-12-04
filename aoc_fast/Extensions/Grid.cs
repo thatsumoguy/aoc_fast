@@ -32,7 +32,7 @@ namespace aoc_fast.Extensions
             var raw = input.Split("\n", StringSplitOptions.RemoveEmptyEntries).Select(Encoding.ASCII.GetBytes).ToArray();
             var width = raw[0].Length;
             var height = raw.Length;
-            return new Grid<byte> { width = width, height = height, data = raw.SelectMany(r => r).ToArray() };
+            return new Grid<byte> { width = width, height = height, data = [.. raw.SelectMany(r => r)] };
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public  Point? Find(T needle)

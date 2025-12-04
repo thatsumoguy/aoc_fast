@@ -115,10 +115,7 @@ namespace aoc_fast.Years._2016
             return next;
         }
 
-        private static int BufferSize(int size)
-        {
-            return ((size + 8) / 64 + 1) * 64;
-        }
+        private static int BufferSize(int size) => ((size + 8) / 64 + 1) * 64;
 
         private static (string, int) result;
 

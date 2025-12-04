@@ -108,7 +108,7 @@ namespace aoc_fast.Years._2016
 
         private static void Worker(Shared shared)
         {
-            while (!cts.IsCancellationRequested)
+            while(!cts.IsCancellationRequested)
             {
                 var n = Interlocked.Add(ref shared.Counter, 1);
                 var buffer = new byte[64];
@@ -133,10 +133,15 @@ namespace aoc_fast.Years._2016
 
         private static int GeneratePad(string input, bool partTwo)
         {
-            cts = new CancellationTokenSource();
-            var shared = new Shared() { Input = input, PartTwo = partTwo, Done = false, Counter = 0, Fives = [], Found = [], Threes = [] };
-            Threads.Spawn(() => Worker(shared));
-            return shared.Found.ElementAt(63);
+            try
+            {
+                cts = new CancellationTokenSource();
+                var shared = new Shared() { Input = input, PartTwo = partTwo, Done = false, Counter = 0, Fives = [], Found = [], Threes = [] };
+                Threads.Spawn(() => Worker(shared));
+                return shared.Found.ElementAt(63);
+            }
+            catch (Exception ex) { Console.WriteLine(ex); }
+            return 0;
         }
 
         public static int PartOne() => GeneratePad(input.Trim(), false);
