@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using aoc_fast.Extensions;
+﻿using aoc_fast.Extensions;
 
 namespace aoc_fast.Years._2025
 {
@@ -20,32 +15,35 @@ namespace aoc_fast.Years._2025
         private static void Parse()
         {
             var split = input.Split("\n\n", StringSplitOptions.RemoveEmptyEntries);
-            var ranges = split[0].Split("\n").Select(line => line.Split('-')).Select(parts => (start: long.Parse(parts[0]), end: long.Parse(parts[1]))).ToList();
-            answers.partOne = split[1].Split("\n", StringSplitOptions.RemoveEmptyEntries).Select(freshIds =>
+            var ranges = split[0].Split("\n").Select(line => line.Split('-')).Select(parts => (start: long.Parse(parts[0]), end: long.Parse(parts[1]))).ToArray().AsSpan();
+            var ids = split[1].Split("\n", StringSplitOptions.RemoveEmptyEntries);
+            foreach(var stringId in ids)
             {
-                var id = long.Parse(freshIds);
-                foreach(var (start,end) in ranges) if (id >= start && id <= end) return 1L;
-                return 0L;
-            }).Sum();
-
-            ranges = [.. ranges.OrderBy(r => r.start)];
-
-            var merged = new List<(long start, long end)>();
-            var start = ranges[0].start;
-            var end = ranges[0].end;
-
-            foreach(var (s,e) in ranges)
-            {
-                if (s <= end + 1) end = end.Max(e);
-                else
+                var id = long.Parse(stringId);
+                for (var i = 0; i < ranges.Length; i++)
                 {
-                    merged.Add((start, end));
-                    (start,end) = (s,e);
+                    var (s, e) = ranges[i];
+                    if (s <= id && id >= e) answers.partOne++;
                 }
             }
-            merged.Add((start, end));
-
-            answers.partTwo = merged.Sum(r => r.end - r.start + 1);
+            ranges.Sort((a, b) => a.start.CompareTo(b.start));
+            var start = ranges[0].start;
+            var end = ranges[0].end;
+            for (var i = 1; i < ranges.Length; i++)
+            {
+                ref var r = ref ranges[i];
+                if (r.start <= end + 1)
+                {
+                    if (r.end > end) end = r.end;
+                }
+                else
+                {
+                    answers.partTwo += (end - start + 1);
+                    start = r.start;
+                    end = r.end;
+                }
+            }
+            answers.partTwo += (end - start + 1);
         }
 
         public static long PartOne()

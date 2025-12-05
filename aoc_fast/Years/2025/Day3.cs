@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Text;
 using aoc_fast.Extensions;
-using BenchmarkDotNet.Disassemblers;
 
 namespace aoc_fast.Years._2025
 {

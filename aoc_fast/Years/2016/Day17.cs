@@ -1,5 +1,4 @@
-﻿using System.Collections.Concurrent;
-using System.Text;
+﻿using System.Text;
 using aoc_fast.Extensions;
 
 namespace aoc_fast.Years._2016

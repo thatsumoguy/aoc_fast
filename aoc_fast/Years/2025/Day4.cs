@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using aoc_fast.Extensions;
+﻿using aoc_fast.Extensions;
 
 namespace aoc_fast.Years._2025
 {
