@@ -159,10 +159,20 @@ try
     if (all) allYearsSW.Start();
     var totalSW = new Stopwatch();
     totalSW.Start();
-    if (days.Count == 0) days.AddRange(Enumerable.Range(1, 25));
     foreach (var year in years)
     {
-
+        if (days.Count == 0)
+        {
+            if(year < 2025)
+            {
+                days.AddRange(Enumerable.Range(1, 25));
+            }
+            else
+            {
+                var curDate = DateTime.Now.Day;
+                days.AddRange(Enumerable.Range(1, curDate < 13 ? curDate : 12));   
+            }
+        }
         var yearNamespace = $"aoc_fast.Years._{year}";
         Console.WriteLine($"Year {year}");
         foreach (var x in days)
