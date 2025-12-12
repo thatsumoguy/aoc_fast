@@ -223,6 +223,7 @@ try
                 Console.WriteLine($"Error while processing {fullClassName}: {ex.Message}");
             }
         }
+        days.Clear();
         double totalTicks = totalSW.ElapsedTicks;
         totalSW.Stop();
         double totalSeconds = totalTicks / Stopwatch.Frequency;

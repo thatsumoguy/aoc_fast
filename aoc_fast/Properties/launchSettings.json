@@ -2,7 +2,7 @@
   "profiles": {
     "aoc_fast": {
       "commandName": "Project",
-      "commandLineArgs": "2016"
+      "commandLineArgs": "2025"
     }
   }
 }

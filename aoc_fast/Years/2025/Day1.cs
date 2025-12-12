@@ -1,5 +1,6 @@
 ﻿using System.Text;
 using aoc_fast.Extensions;
+using Iced.Intel;
 namespace aoc_fast.Years._2025
 {
     public class Day1
@@ -30,7 +31,8 @@ namespace aoc_fast.Years._2025
                 {
                     var reversed = (100 - dial) % 100;
                     partTwo += (reversed + amount) / 100;
-                    dial = FastMath.RemEuclid(dial - amount, 100);
+                    var val = (dial - amount) % 100;
+                    dial = val < 0 ? val + 100 : val;
                 }
                 partOne += dial == 0 ? 1 : 0;
             }
